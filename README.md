@@ -1,2 +1,2 @@
-[Archetech site](http://www,archetech.com)
+[Archetech site](http://www.archetech.com)
 
