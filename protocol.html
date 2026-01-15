@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archon Protocol - Technical Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --accent: #22c55e;
+            --dark: #1f2937;
+            --light-bg: #f9fafb;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Verdana, sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            background-color: #ffffff;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-section img {
+            height: 100px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+            margin-left: auto;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.25rem;
+        }
+        
+        .github-link {
+            margin-left: auto;
+        }
+        
+        .github-link a {
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .github-link a:hover {
+            color: var(--accent);
+        }
+        
+        .github-link svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin: 1rem 0 2rem;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        code {
+            background-color: var(--light-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .code-block {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .json-key {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+        
+        .json-string {
+            color: #34d399;
+        }
+        
+        .json-number {
+            color: #fbbf24;
+        }
+        
+        .json-boolean {
+            color: #f87171;
+        }
+        
+        .json-null {
+            color: #9ca3af;
+            font-style: italic;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .component-card {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .component-card h3 {
+            color: var(--dark);
+            margin-top: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <img src="logo_white.png" alt="Archetech">
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/protocol.html" class="active">Protocol</a>
+            <a href="/solutions.html">Solutions</a>
+            <a href="/Director_Bios.html">Team</a>
+        </nav>
+        <div class="github-link">
+            <a href="https://github.com/archetech/archon" target="_blank" rel="noopener noreferrer" title="Archon GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>Archon Protocol</h1>
+            <p class="tagline">Technical Specification & Architecture</p>
+        </section>
+        
+        <section>
+            <h2>Technical Architecture</h2>
+            
+            <h3>System Overview</h3>
+            <p>Archon is built around a separation of concerns architecture. Each Archon node contains three main layers:</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Gatekeeper</h3>
+                    <p>The authoritative local source for DID state. Receives and validates DID operations, maintains operation queues per registry, and provides a REST API for DID CRUD operations. Supports multiple database backends (Redis, MongoDB, SQLite).</p>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Keymaster</h3>
+                    <p>Client-side wallet library responsible for BIP-32 hierarchical deterministic key derivation, BIP-39 mnemonic seed phrase management, ECDSA signing of DID operations, and encryption/decryption of messages and credentials.</p>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Mediators</h3>
+                    <p>Network synchronization components that distribute DID operations across the network. Includes Hyperswarm Mediator for P2P gossip, Satoshi Mediator for blockchain anchoring, and Inscription Mediator for Taproot-based registration.</p>
+                </div>
+            </div>
+            
+            <h3>Data Flow</h3>
+            <p>A typical DID operation flow follows this sequence:</p>
+            <ol>
+                <li><strong>Client Request:</strong> User requests a DID operation (create, update, delete)</li>
+                <li><strong>Keymaster Signs:</strong> Keymaster creates the operation and signs it with the private key</li>
+                <li><strong>Gatekeeper Validates:</strong> Gatekeeper validates the signed operation and queues it</li>
+                <li><strong>IPFS Storage:</strong> Operation is stored in IPFS and CID is returned</li>
+                <li><strong>Registry Confirms:</strong> Selected registry confirms and orders the operation</li>
+            </ol>
+        </section>
+        
+        <section>
+            <h2>The did:cid Method</h2>
+            
+            <h3>Method Specification</h3>
+            <p>The <code>did:cid</code> method leverages Content Identifiers (CIDs) from IPFS to create self-certifying, content-addressed DIDs:</p>
+            
+            <div class="code-block"><pre>did:cid:&lt;cid&gt;[;service][/path][?query][#fragment]</pre></div>
+            
+            <p><strong>Example:</strong> <code>did:cid:bafkreig6rjxbv2aopv47dgxhnxepqpb4yrxf2nvzrhmhdqthojfdxuxjbe</code></p>
+            
+            <h3>DID Types</h3>
+            <p>Archon supports two fundamental DID types:</p>
+            <ul>
+                <li><strong>Agent DIDs:</strong> Possess cryptographic keys, can sign operations, controlled by a private key holder. Used for users, organizations, services, IoT devices</li>
+                <li><strong>Asset DIDs:</strong> No cryptographic keys, controlled by an owning Agent DID. Used for credentials, schemas, documents, data</li>
+            </ul>
+            
+            <h3>DID Document Structure</h3>
+            <p>Archon DID documents are W3C-compliant with Archon-specific extensions:</p>
+            
+            <div class="code-block"><pre>{
+  <span class="json-key">"@context"</span>: <span class="json-string">"https://w3id.org/did-resolution/v1"</span>,
+  <span class="json-key">"didDocument"</span>: {
+    <span class="json-key">"id"</span>: <span class="json-string">"did:cid:bafkrei..."</span>,
+    <span class="json-key">"verificationMethod"</span>: [{
+      <span class="json-key">"id"</span>: <span class="json-string">"#key-1"</span>,
+      <span class="json-key">"type"</span>: <span class="json-string">"EcdsaSecp256k1VerificationKey2019"</span>,
+      <span class="json-key">"publicKeyJwk"</span>: { <span class="json-null">/* JWK format */</span> }
+    }],
+    <span class="json-key">"authentication"</span>: [<span class="json-string">"#key-1"</span>],
+    <span class="json-key">"assertionMethod"</span>: [<span class="json-string">"#key-1"</span>]
+  },
+  <span class="json-key">"didDocumentMetadata"</span>: {
+    <span class="json-key">"created"</span>: <span class="json-string">"2024-01-15T10:30:00Z"</span>,
+    <span class="json-key">"versionId"</span>: <span class="json-number">1</span>
+  },
+  <span class="json-key">"didDocumentData"</span>: {},
+  <span class="json-key">"didDocumentRegistration"</span>: {
+    <span class="json-key">"registry"</span>: <span class="json-string">"hyperswarm"</span>,
+    <span class="json-key">"type"</span>: <span class="json-string">"agent"</span>,
+    <span class="json-key">"version"</span>: <span class="json-number">1</span>
+  }
+}</pre></div>
+            
+            <h3>Operations</h3>
+            <p>All DID state changes occur through signed operations. Three operation types are supported:</p>
+            <ul>
+                <li><strong>Create:</strong> Establishes a new DID with initial public key and registration details</li>
+                <li><strong>Update:</strong> Modifies DID document fields, creates a new version with previd linking</li>
+                <li><strong>Delete:</strong> Deactivates a DID, preventing future operations</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>The didDocumentData Extension</h2>
+            
+            <h3>Purpose and Design</h3>
+            <p>The <code>didDocumentData</code> field is an extension to the W3C DID specification that allows arbitrary application data to be stored alongside the DID. This transforms DIDs from static identifier containers into rich, self-sovereign data repositories.</p>
+            
+            <h3>Key Properties</h3>
+            <ul>
+                <li><strong>Schema-Free:</strong> No predefined structure—applications define their own schemas</li>
+                <li><strong>Cryptographically Signed:</strong> All data is signed by the DID controller, ensuring authenticity</li>
+                <li><strong>Version-Controlled:</strong> Every change creates a new version with full audit trail</li>
+                <li><strong>Decentrally Stored:</strong> Distributed via IPFS and synchronized across registries</li>
+                <li><strong>Controller-Owned:</strong> Only the DID controller can modify the data</li>
+            </ul>
+            
+            <h3>Use Cases Enabled</h3>
+            <ul>
+                <li><strong>Credential Manifests:</strong> Users publish verified credentials to their DID, creating a decentralized professional profile</li>
+                <li><strong>Identity Vaults:</strong> Encrypted backup storage tied directly to an identity for recovery</li>
+                <li><strong>Digital Assets:</strong> Images, documents, and structured data become first-class citizens with their own DIDs</li>
+                <li><strong>Encrypted Communications:</strong> End-to-end encrypted messages stored with DIDs</li>
+                <li><strong>Organizational Structures:</strong> Groups and hierarchies with membership data</li>
+                <li><strong>Notices and Announcements:</strong> Time-sensitive communications to specific recipients</li>
+                <li><strong>Polls and Governance:</strong> Decentralized voting with cryptographic integrity</li>
+            </ul>
+            
+            <h3>W3C Compatibility</h3>
+            <p>The W3C DID Core specification explicitly supports extensibility. Archon's <code>didDocumentData</code> is an additive extension that follows W3C guidance, ensuring graceful degradation for systems unaware of it.</p>
+        </section>
+        
+        <section>
+            <h2>Registry System</h2>
+            
+            <h3>Registry Abstraction</h3>
+            <p>Archon provides a unified interface across different consensus mechanisms. This abstraction allows users to choose their preferred security/cost trade-offs at DID creation time.</p>
+            
+            <table>
+                <tr>
+                    <th>Registry</th>
+                    <th>Confirmation Time</th>
+                    <th>Cost</th>
+                    <th>Finality Type</th>
+                    <th>Best For</th>
+                </tr>
+                <tr>
+                    <td><strong>Hyperswarm</strong></td>
+                    <td>Seconds</td>
+                    <td>Free</td>
+                    <td>Eventual consistency</td>
+                    <td>Development, testing</td>
+                </tr>
+                <tr>
+                    <td><strong>Bitcoin</strong></td>
+                    <td>~60 min (6 blocks)</td>
+                    <td>~$0.001/batch</td>
+                    <td>Computational (PoW)</td>
+                    <td>Enterprise, legal documents</td>
+                </tr>
+                <tr>
+                    <td><strong>Feathercoin</strong></td>
+                    <td>~15 min (6 blocks)</td>
+                    <td>~$0.00001/batch</td>
+                    <td>Computational (PoW)</td>
+                    <td>Cost-sensitive applications</td>
+                </tr>
+            </table>
+            
+            <h3>Hyperswarm Registry</h3>
+            <p>The Hyperswarm registry provides fast, peer-to-peer operation distribution using a gossip protocol. Operations are broadcast to connected peers, validated locally, and ordered by timestamp with cryptographic tiebreakers for eventual consistency across the network.</p>
+            
+            <h3>Blockchain Registries</h3>
+            <p>Bitcoin and Feathercoin registries anchor operation batches to the blockchain via OP_RETURN outputs. The mechanism:</p>
+            <ol>
+                <li>Operations accumulate in a queue</li>
+                <li>Mediator batches operations and computes batch CID</li>
+                <li>Batch CID is embedded in OP_RETURN output (60 bytes)</li>
+                <li>Transaction is broadcast and confirmed</li>
+                <li>All nodes independently verify and import</li>
+            </ol>
+            
+            <h3>Blockchain Timestamping</h3>
+            <p>Operations confirmed on blockchain automatically receive cryptographic timestamping:</p>
+            <ul>
+                <li><strong>Lower Bound (optional):</strong> Block referenced in operation's <code>blockid</code> field, proving creation after that block</li>
+                <li><strong>Upper Bound (always):</strong> Block containing the anchored operation with full block metadata</li>
+                <li><strong>Legal Use:</strong> Timestamped operations provide court-admissible proof of existence at specific times</li>
+                <li><strong>Use Cases:</strong> IP registration, credential validity windows, audit compliance, version control</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Verifiable Credentials</h2>
+            
+            <h3>W3C Compliance</h3>
+            <p>Archon implements the full W3C Verifiable Credentials Data Model, enabling compatibility with the broader identity ecosystem. Credentials follow the standard structure with issuer, holder, verifier, and optional revocation support.</p>
+            
+            <h3>Credential Lifecycle</h3>
+            <ol>
+                <li><strong>Issuer:</strong> Creates and cryptographically signs a credential</li>
+                <li><strong>Holder:</strong> Accepts the credential and stores it securely</li>
+                <li><strong>Verifier:</strong> Validates the credential against the issuer's DID</li>
+                <li><strong>Revocation:</strong> Issuer can revoke with full audit trail maintained</li>
+            </ol>
+            
+            <h3>Privacy Features</h3>
+            <ul>
+                <li><strong>Encryption:</strong> Credentials can be encrypted for specific recipients</li>
+                <li><strong>Selective Disclosure:</strong> Holders present only necessary credentials and attributes</li>
+                <li><strong>Bound Credentials:</strong> Credentials cryptographically bound to subjects prevent credential transfer</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Cryptographic Foundation</h2>
+            
+            <h3>Key Management (BIP-32/BIP-39)</h3>
+            <p>Archon uses industry-standard key derivation:</p>
+            <ul>
+                <li><strong>BIP-39:</strong> Mnemonic seed phrase generation for user backup and recovery</li>
+                <li><strong>BIP-32:</strong> Hierarchical deterministic wallet enabling key derivation for multiple identities</li>
+                <li><strong>Key Derivation:</strong> Separate paths for Bitcoin keys, SegWit, Taproot, and DID signing</li>
+            </ul>
+            
+            <h3>Signature Scheme</h3>
+            <p>All operations are signed using ECDSA over secp256k1:</p>
+            <div class="code-block"><pre>signature = ECDSA_sign(
+  private_key,
+  SHA256(canonical_json(operation))
+)</pre></div>
+            
+            <h3>Content Addressing</h3>
+            <p>DIDs are derived from content addresses, making them self-certifying:</p>
+            <div class="code-block"><pre>operation = create_operation(public_key, registry, ...)
+canonical = json_canonicalize(operation)
+cid = IPFS_add(canonical)  // CIDv1, base32
+did = "did:cid:" + cid</pre></div>
+            
+            <p>The DID itself proves the integrity of the creation operation through cryptographic hashing.</p>
+            
+            <h3>Encryption</h3>
+            <ul>
+                <li><strong>AES-256-GCM:</strong> Symmetric encryption for at-rest credential and message protection</li>
+                <li><strong>Selective Disclosure:</strong> Cryptographic commitments enable revealing only necessary data</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Advanced Features</h2>
+            
+            <h3>Time-Travel Resolution</h3>
+            <p>Archon enables resolving DIDs at any point in their history through operation chaining:</p>
+            <div class="code-block"><pre>resolveDID(did, { versionTime: "2024-01-15T10:00:00Z" })
+resolveDID(did, { versionSequence: 3 })
+resolveDID(did, { versionId: "bafkrei..." })</pre></div>
+            <p><strong>Use Cases:</strong> Audit trails, dispute resolution, compliance verification, historical analysis</p>
+            
+            <h3>Decentralized Messaging (D-Mail)</h3>
+            <p>A complete email system built on the DID infrastructure supporting folder organization, CC with individual encryption, file attachments as asset DIDs, read tracking, and dual encryption.</p>
+            
+            <h3>Privacy-Preserving Voting</h3>
+            <p>Two-phase voting protocol with ballot collection (private), optional result revelation, spoil ballots for plausible deniability, and anonymous tallying.</p>
+            
+            <h3>Group Vaults with Secret Membership</h3>
+            <p>Multi-party encrypted storage where members can share data without knowing each other's identities, ideal for whistleblower systems and anonymous committees.</p>
+            
+            <h3>Challenge-Response Authentication</h3>
+            <p>Flexible authentication supporting simple identity challenges, credential type challenges, and issuer-specific challenges with Verifiable Presentations.</p>
+            
+            <h3>Key Rotation</h3>
+            <p>Secure key rotation without changing the DID. Old keys cannot sign new operations (enforced by previd chain), but historical signatures remain verifiable.</p>
+        </section>
+        
+        <section>
+            <h2>Network Topology</h2>
+            
+            <h3>Node Types</h3>
+            <ul>
+                <li><strong>Full Nodes:</strong> Run complete Gatekeeper with local database, participate in all supported registries, validate and store all operations</li>
+                <li><strong>Light Clients:</strong> Connect to trusted full nodes, perform wallet operations locally, delegate resolution</li>
+                <li><strong>Registry Nodes:</strong> Specialized mediator nodes focused on specific registry synchronization</li>
+            </ul>
+            
+            <h3>Peer Discovery</h3>
+            <ul>
+                <li><strong>Hyperswarm DHT:</strong> Topic-based DHT for node discovery with encrypted noise protocol connections</li>
+                <li><strong>IPFS Network:</strong> Global content retrieval ensuring availability of DID operations</li>
+            </ul>
+            
+            <h3>Synchronization</h3>
+            <p>Nodes synchronize through multiple channels: Hyperswarm for fast gossip-based distribution, IPFS for content availability, and blockchain nodes for finality confirmation. This multi-layer approach ensures both speed and security.</p>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Archetech. All rights reserved.</p>
+        <p><a href="https://github.com/archetech/archon">GitHub Repository</a></p>
+    </footer>
+</body>
+</html>

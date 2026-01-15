@@ -1,54 +1,439 @@
-<!-- <meta http-equiv="refresh" content="0; URL=http://www.archetech.com/">-->
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Archetech</title>
+    <title>Archon - Decentralized Identity Protocol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-    
-#page {
-    height: 71%;
-    width: 100%;
-}
- 
-#logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -300px;
-    margin-left: -200px;
-}
-
-#meridion {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-top: -175px;
-    margin-left: -600px;
-    font-family: Verdana, sans-serif;
-    font-size: 18px;
-}
-
-#text {
-    font-family: Verdana, sans-serif;
-    font-size: 18px;
-    text-align: center;
-}
-
-A:link {
- COLOR: black;
- text-decoration: none;
-}
-
-A:visited {
- COLOR: black
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --accent: #22c55e;
+            --dark: #1f2937;
+            --light-bg: #f9fafb;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Verdana, sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            background-color: #ffffff;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-section img {
+            height: 100px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+            margin-left: auto;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.25rem;
+        }
+        
+        .github-link {
+            margin-left: auto;
+        }
+        
+        .github-link a {
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .github-link a:hover {
+            color: var(--accent);
+        }
+        
+        .github-link svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin: 1rem 0 2rem;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+        }
+        
+        .feature-card h3 {
+            color: var(--dark);
+            margin-top: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .comparison-card {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .comparison-card h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="page">
-        <img id="logo" src="logo.png">
+    <header>
+        <div class="logo-section">
+            <img src="logo_white.png" alt="Archetech">
+        </div>
+        <nav>
+            <a href="/" class="active">Home</a>
+            <a href="/protocol.html">Protocol</a>
+            <a href="/solutions.html">Solutions</a>
+            <a href="/Director_Bios.html">Team</a>
+        </nav>
+        <div class="github-link">
+            <a href="https://github.com/archetech/archon" target="_blank" rel="noopener noreferrer" title="Archon GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>Archon</h1>
+            <p class="tagline">A Decentralized Identity Protocol</p>
+            <p style="font-size: 1.1rem; color: #666;">Better Governance, Better Decisions, Better Outcomes</p>
+        </section>
+        
+        <section>
+            <h2>Introduction</h2>
+            <p>The digital age has created an identity paradox. While individuals generate more personal data than ever before, control over that data has concentrated in the hands of a few large platforms. Traditional identity systems—whether government-issued, corporate-managed, or platform-specific—share fundamental limitations: centralized control, single points of failure, and the inability to provide true user sovereignty.</p>
+            
+            <p>Decentralized Identifiers (DIDs), as specified by the World Wide Web Consortium (W3C), offer a path forward. DIDs are globally unique identifiers that enable verifiable, decentralized digital identity without requiring a centralized registry. However, existing DID implementations face practical challenges: blockchain-based methods incur transaction costs and confirmation delays, while purely peer-to-peer approaches lack the finality guarantees required for high-stakes applications.</p>
+            
+            <p><span class="highlight">Archon addresses these challenges through a novel architectural approach</span> that separates identity creation from identity updates, achieving both instant availability and cryptographic finality through its multi-registry design.</p>
+        </section>
+        
+        <section>
+            <h2>The Problem</h2>
+            
+            <h3>The Centralization Problem</h3>
+            <p>Current digital identity systems concentrate authority in centralized entities. Whether a government agency, a social media platform, or an enterprise identity provider, these systems create:</p>
+            <ul>
+                <li><strong>Single points of failure:</strong> Service outages or organization failures can invalidate identities</li>
+                <li><strong>Privacy vulnerabilities:</strong> Centralized databases become attractive targets for attackers</li>
+                <li><strong>Censorship risks:</strong> Central authorities can revoke identities without recourse</li>
+                <li><strong>Vendor lock-in:</strong> Users cannot port their identity between systems</li>
+            </ul>
+            
+            <h3>The Blockchain Trilemma for Identity</h3>
+            <p>Existing blockchain-based DID methods face a fundamental tension between:</p>
+            <ul>
+                <li><strong>Cost:</strong> On-chain operations require transaction fees, making identity creation economically infeasible for many use cases</li>
+                <li><strong>Speed:</strong> Blockchain confirmation times (minutes to hours) create unacceptable latency for real-time applications</li>
+                <li><strong>Decentralization:</strong> Solutions that address cost and speed often compromise on decentralization</li>
+            </ul>
+            
+            <h3>The Verification Gap</h3>
+            <p>Even when decentralized identities exist, verifying them requires access to the same network infrastructure, trust in the resolution mechanism, and the ability to validate cryptographic proofs. Many existing systems fail to provide portable, universally verifiable identity documents.</p>
+        </section>
+        
+        <section>
+            <h2>The Archon Solution</h2>
+            
+            <h3>Core Innovation: Separation of Creation and Updates</h3>
+            <p>Archon's fundamental insight is that DID creation and DID updates have fundamentally different requirements:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Creation Requirements</h3>
+                    <ul>
+                        <li>Speed (immediate availability)</li>
+                        <li>Low/zero cost (enabling mass adoption)</li>
+                        <li>Decentralization (no gatekeepers)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>Update Requirements</h3>
+                    <ul>
+                        <li>Ordering guarantees (prevent replay attacks)</li>
+                        <li>Finality (irreversible once confirmed)</li>
+                        <li>Auditability (verifiable history)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p>By separating these concerns, Archon achieves optimal characteristics for each:</p>
+            <ul>
+                <li><span class="highlight">Identity Creation (IPFS/CAS):</span> Instant (&lt;10 seconds), zero cost, content-addressed, globally available, no gatekeepers</li>
+                <li><span class="highlight">Identity Updates (Registry):</span> Ordered by registry, cryptographically signed, consensus-verified, auditable history, finality guarantees</li>
+            </ul>
+            
+            <h3>Multi-Registry Architecture</h3>
+            <p>Rather than mandating a single consensus mechanism, Archon supports multiple registries, each with different characteristics. Users select their registry at DID creation based on their specific requirements, enabling a spectrum of security-cost trade-offs:</p>
+            
+            <table>
+                <tr>
+                    <th>Registry</th>
+                    <th>Speed</th>
+                    <th>Cost</th>
+                    <th>Finality</th>
+                    <th>Best For</th>
+                </tr>
+                <tr>
+                    <td><strong>Hyperswarm</strong></td>
+                    <td>Seconds</td>
+                    <td>Free</td>
+                    <td>Eventual</td>
+                    <td>Development, internal systems</td>
+                </tr>
+                <tr>
+                    <td><strong>Bitcoin</strong></td>
+                    <td>~60 minutes</td>
+                    <td>~$0.001/batch</td>
+                    <td>Strong</td>
+                    <td>Enterprise, legal identity</td>
+                </tr>
+                <tr>
+                    <td><strong>Feathercoin</strong></td>
+                    <td>~15 minutes</td>
+                    <td>~$0.00001/batch</td>
+                    <td>Strong</td>
+                    <td>Cost-sensitive applications</td>
+                </tr>
+            </table>
+            
+            <h3>W3C Compliance</h3>
+            <p>Archon implements the full W3C DID specification, ensuring interoperability with the broader decentralized identity ecosystem. This includes standard DID document structure, verification methods and authentication, service endpoints, and DID resolution with metadata.</p>
+        </section>
+        
+        <section>
+            <h2>Conclusion</h2>
+            <p>Archon represents a significant advancement in decentralized identity technology. By separating identity creation from updates and supporting multiple registry options, it solves the fundamental tension between decentralization, cost, and speed that has limited previous approaches.</p>
+            
+            <h3>Key Innovations</h3>
+            <ul>
+                <li>Zero-cost, instant identity creation through IPFS content addressing</li>
+                <li>Flexible finality options via multi-registry architecture</li>
+                <li>The didDocumentData extension enabling arbitrary application data bound to identities</li>
+                <li>Automatic blockchain timestamping providing cryptographic proof of when operations occurred</li>
+                <li>Time-travel resolution allowing DIDs to be resolved at any point in their history</li>
+                <li>Decentralized messaging (D-Mail) built on the identity layer</li>
+                <li>Privacy-preserving voting with spoil ballots and two-phase revelation</li>
+                <li>Group vaults with secret membership for anonymous collaboration</li>
+                <li>Full W3C compliance ensuring ecosystem interoperability</li>
+                <li>Comprehensive credential support for real-world applications</li>
+            </ul>
+            
+            <p>The protocol is production-ready, with multiple client implementations (CLI, web, mobile, browser extension), robust cryptographic foundations, and extensive testing. Organizations seeking to implement decentralized identity infrastructure will find Archon provides the flexibility, security, and performance required for diverse use cases.</p>
+            
+            <p>As the digital identity landscape continues to evolve, Archon's modular architecture positions it to adapt to new requirements while maintaining backward compatibility and the core principles of user sovereignty and decentralization.</p>
+        </section>
     </div>
-    <p id="text">Better Governance, Better Decisions, Better Outcomes
-    </p>
+    
+    <footer>
+        <p>&copy; 2024 Archetech. All rights reserved.</p>
+        <p><a href="https://github.com/archetech/archon">GitHub Repository</a></p>
+    </footer>
 </body>
 </html>
 
