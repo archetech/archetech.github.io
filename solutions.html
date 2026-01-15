@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archon Solutions - Use Cases & Applications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --accent: #22c55e;
+            --dark: #1f2937;
+            --light-bg: #f9fafb;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Verdana, sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            background-color: #ffffff;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-section img {
+            height: 100px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+            margin-left: auto;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.25rem;
+        }
+        
+        .github-link {
+            margin-left: auto;
+        }
+        
+        .github-link a {
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .github-link a:hover {
+            color: var(--accent);
+        }
+        
+        .github-link svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin: 1rem 0 2rem;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .use-case-card {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .use-case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+        }
+        
+        .use-case-card h3 {
+            color: var(--dark);
+            margin-top: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <img src="logo_white.png" alt="Archetech">
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/protocol.html">Protocol</a>
+            <a href="/solutions.html" class="active">Solutions</a>
+            <a href="/Director_Bios.html">Team</a>
+        </nav>
+        <div class="github-link">
+            <a href="https://github.com/archetech/archon" target="_blank" rel="noopener noreferrer" title="Archon GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>Archon Solutions</h1>
+            <p class="tagline">Real-World Use Cases & Applications</p>
+        </section>
+        
+        <section>
+            <h2>Use Cases</h2>
+            
+            <h3>Self-Sovereign Identity</h3>
+            <p>Individuals create and control their own digital identities without relying on any central authority:</p>
+            <ul>
+                <li>Generate identity locally using Keymaster wallet</li>
+                <li>Choose appropriate registry based on needs (fast vs. secure)</li>
+                <li>Hold credentials from multiple issuers</li>
+                <li>Present credentials selectively to verifiers</li>
+                <li>Recover identity using mnemonic seed phrase</li>
+            </ul>
+            
+            <h3>Enterprise Identity Management</h3>
+            <p>Organizations deploy Archon for decentralized employee and partner identity:</p>
+            <ul>
+                <li>Issue employee credentials upon onboarding</li>
+                <li>Revoke credentials instantly upon separation</li>
+                <li>Enable passwordless authentication across systems</li>
+                <li>Audit credential usage and access patterns</li>
+                <li>Integrate with existing identity infrastructure</li>
+            </ul>
+            
+            <h3>Educational Credentials</h3>
+            <p>Universities and certification bodies issue verifiable credentials:</p>
+            <ul>
+                <li>Degrees and diplomas as cryptographically signed credentials</li>
+                <li>Professional certifications with expiration dates</li>
+                <li>Micro-credentials for specific skills and competencies</li>
+                <li>Instant verification by employers without manual checks</li>
+            </ul>
+            
+            <h3>IoT Device Identity</h3>
+            <p>Connected devices receive unique, verifiable identities:</p>
+            <ul>
+                <li>Device attestation through manufacturer credentials</li>
+                <li>Secure device-to-device authentication</li>
+                <li>Supply chain provenance tracking from manufacturer to deployment</li>
+                <li>Firmware update verification and audit trails</li>
+            </ul>
+            
+            <h3>Voting and Governance</h3>
+            <p>Organizations implement transparent, auditable voting systems:</p>
+            <ul>
+                <li>Anonymous ballot casting with cryptographic integrity</li>
+                <li>Verifiable vote counting with audit trails</li>
+                <li>Proof of eligibility without identity disclosure</li>
+                <li>Immutable election results anchored to blockchain</li>
+            </ul>
+            
+            <h3>Digital Asset Provenance</h3>
+            <p>Track ownership and authenticity of digital assets:</p>
+            <ul>
+                <li>Digital art authentication and ownership proof</li>
+                <li>Document signing and notarization with timestamps</li>
+                <li>Supply chain tracking with cryptographic verification</li>
+                <li>Intellectual property registration and protection</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Comparison with Existing Solutions</h2>
+            
+            <h3>Feature Comparison</h3>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Archon (did:cid)</th>
+                    <th>did:btc / did:ion</th>
+                    <th>did:web</th>
+                    <th>did:key</th>
+                </tr>
+                <tr>
+                    <td><strong>Creation Cost</strong></td>
+                    <td>Free</td>
+                    <td>~$1-10</td>
+                    <td>Free</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Creation Speed</strong></td>
+                    <td>Instant</td>
+                    <td>Minutes</td>
+                    <td>Instant</td>
+                    <td>Instant</td>
+                </tr>
+                <tr>
+                    <td><strong>Update Support</strong></td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><strong>Decentralization</strong></td>
+                    <td>Full</td>
+                    <td>Full</td>
+                    <td>Partial (DNS dependent)</td>
+                    <td>Full</td>
+                </tr>
+                <tr>
+                    <td><strong>Finality Options</strong></td>
+                    <td>Multiple registries</td>
+                    <td>Strong only</td>
+                    <td>None</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td><strong>Credential Support</strong></td>
+                    <td>Full (W3C)</td>
+                    <td>Limited</td>
+                    <td>Full</td>
+                    <td>Limited</td>
+                </tr>
+                <tr>
+                    <td><strong>Key Recovery</strong></td>
+                    <td>BIP-39 mnemonic</td>
+                    <td>Varies</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td><strong>Rich Data Storage</strong></td>
+                    <td>Yes (didDocumentData)</td>
+                    <td>No</td>
+                    <td>External only</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><strong>Blockchain Timestamps</strong></td>
+                    <td>Automatic with bounds</td>
+                    <td>Implicit</td>
+                    <td>No</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><strong>Time-Travel Resolution</strong></td>
+                    <td>Yes</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><strong>Built-in Messaging</strong></td>
+                    <td>Yes (D-Mail)</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><strong>Voting & Governance</strong></td>
+                    <td>Yes</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>No</td>
+                </tr>
+            </table>
+            
+            <h3>Architectural Comparison</h3>
+            
+            <h4>did:btc / did:ion</h4>
+            <p>These blockchain-based approaches require a transaction for every operation, resulting in high costs and latency. While they provide strong finality through computational proof-of-work, they sacrifice user experience and adoption feasibility.</p>
+            
+            <h4>did:web</h4>
+            <p>Web DIDs rely on DNS and HTTPS, making them centralized at the domain level. While simple and fast, they offer no inherent finality, ordering guarantees, or decentralization benefits.</p>
+            
+            <h4>did:key</h4>
+            <p>Simple and deterministic from public keys, did:key is ideal for ephemeral use cases. However, it provides no update capability, limiting applicability for identity management over time.</p>
+            
+            <h4>did:cid (Archon)</h4>
+            <p><span class="highlight">Archon achieves the best combination:</span> free, instant creation via IPFS combined with optional blockchain finality for updates. This hybrid approach provides both user-friendly adoption and cryptographic security where needed.</p>
+        </section>
+        
+        <section>
+            <h2>Future Directions</h2>
+            
+            <h3>Protocol Evolution</h3>
+            <p>Archon's development roadmap includes several enhancements:</p>
+            
+            <h4>Multi-Signature Support</h4>
+            <ul>
+                <li>Threshold signatures for organizational control</li>
+                <li>Social recovery mechanisms for key loss</li>
+                <li>Escrow and time-locked operations</li>
+            </ul>
+            
+            <h4>Zero-Knowledge Proofs</h4>
+            <ul>
+                <li>Selective disclosure without revealing full credentials</li>
+                <li>Anonymous credential verification</li>
+                <li>Privacy-preserving age and attribute verification</li>
+            </ul>
+            
+            <h4>Cross-Chain Bridges</h4>
+            <ul>
+                <li>Registry migration between blockchains</li>
+                <li>Interoperability with other DID methods</li>
+                <li>Federated identity across networks</li>
+            </ul>
+            
+            <h3>Ecosystem Development</h3>
+            
+            <h4>Schema Registry</h4>
+            <p>Standardized credential schemas with industry-specific packages and automated validation, enabling interoperable credential ecosystems.</p>
+            
+            <h4>Trust Frameworks</h4>
+            <p>Governance frameworks for issuer accreditation, trust registries for verifier policies, and reputation systems for identity providers.</p>
+            
+            <h3>Performance Optimization</h3>
+            
+            <h4>Layer 2 Scaling</h4>
+            <ul>
+                <li>Batching and rollup techniques for blockchain registries</li>
+                <li>State channels for high-frequency updates</li>
+                <li>Optimistic confirmation with dispute resolution</li>
+            </ul>
+            
+            <p>These optimizations will enable scaling to millions of identities while maintaining strong security guarantees.</p>
+        </section>
+        
+        <section>
+            <h2>Getting Started</h2>
+            <p>Organizations interested in implementing Archon can:</p>
+            <ul>
+                <li>Review the <a href="/protocol.html">Protocol documentation</a> for technical architecture details</li>
+                <li>Explore the <a href="https://github.com/archetech/archon">GitHub repository</a> for code examples and implementations</li>
+                <li>Contact the team at <a href="mailto:christian@archetech.com">christian@archetech.com</a> or <a href="mailto:david@archetech.com">david@archetech.com</a></li>
+            </ul>
+            <p>The full whitepaper and additional resources are available on GitHub. Our team is ready to support integration projects and discuss custom deployments.</p>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Archetech. All rights reserved.</p>
+        <p><a href="https://github.com/archetech/archon">GitHub Repository</a></p>
+    </footer>
+</body>
+</html>
