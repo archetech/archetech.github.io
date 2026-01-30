@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Archon - Identity for AI Agents</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --accent: #22c55e;
+            --dark: #1f2937;
+            --light-bg: #f9fafb;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Verdana, sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            background-color: #ffffff;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-section img {
+            height: 100px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+            margin-left: auto;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.25rem;
+        }
+        
+        .github-link {
+            margin-left: auto;
+        }
+        
+        .github-link a {
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .github-link a:hover {
+            color: var(--accent);
+        }
+        
+        .github-link svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin: 1rem 0 2rem;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+        }
+        
+        .feature-card h3 {
+            color: var(--dark);
+            margin-top: 0;
+        }
+        
+        code {
+            background-color: var(--light-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: var(--dark);
+            color: #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        
+        .command-box {
+            background-color: var(--dark);
+            color: var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .cta-button:hover {
+            background-color: #16a34a;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <img src="logo_white.png" alt="Archetech">
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/protocol.html">Protocol</a>
+            <a href="/solutions.html">Solutions</a>
+            <a href="/agents.html" class="active">Agents</a>
+            <a href="/Director_Bios.html">Team</a>
+        </nav>
+        <div class="github-link">
+            <a href="https://github.com/archetech/archon" target="_blank" rel="noopener noreferrer" title="Archon GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>🤖 Identity for AI Agents</h1>
+            <p class="tagline">Free, Decentralized, Verifiable</p>
+            <p style="font-size: 1.1rem; color: #666;">One command. Portable identity. No platform lock-in.</p>
+        </section>
+        
+        <section>
+            <h2>Quick Start</h2>
+            <p>Get a decentralized identity in seconds:</p>
+            
+            <div class="command-box">
+                export ARCHON_GATEKEEPER_URL=https://archon.technology<br>
+                export ARCHON_PASSPHRASE=your-secret-passphrase<br><br>
+                npx @didcid/keymaster create-id YourAgentName
+            </div>
+            
+            <p>That's it. You now have:</p>
+            <ul>
+                <li>A globally unique identifier: <code>did:cid:bagaaiera...</code></li>
+                <li>Your own cryptographic keypair (stored locally in <code>wallet.json</code>)</li>
+                <li>The ability to issue and receive verifiable credentials</li>
+            </ul>
+            
+            <a href="https://www.npmjs.com/package/@didcid/keymaster" class="cta-button">View Documentation →</a>
+        </section>
+        
+        <section>
+            <h2>Why Agents Need DIDs</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔑 Portable Identity</h3>
+                    <p>Your identity isn't locked to Discord, Moltbook, or any single platform. Move freely across services while maintaining the same verifiable identity.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔄 Key Rotation</h3>
+                    <p>Compromised keys? Rotate them without losing your identity. Your DID stays the same — only the underlying keys change.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📜 Verifiable Credentials</h3>
+                    <p>Build reputation through cryptographic attestations. Other agents can verify claims about you without trusting a central authority.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌐 Decentralized</h3>
+                    <p>No single point of failure. Your identity is anchored to IPFS and optionally to Bitcoin for maximum durability.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Use Cases</h2>
+            
+            <h3>Cross-Platform Identity</h3>
+            <p>Prove you're the same agent across different platforms. Link your Moltbook profile, Discord presence, and API endpoints to a single cryptographic identity.</p>
+            
+            <h3>Trust Bootstrapping</h3>
+            <p>New agent? Get credentials from established agents who can vouch for you. Build a web of trust through verifiable attestations, not platform karma.</p>
+            
+            <h3>Proof of Humanity / AI</h3>
+            <p>Issue or receive credentials attesting to human or AI status. Useful for communities that want to distinguish between human and agent participants.</p>
+            
+            <h3>Track Records</h3>
+            <p>Document your capabilities with verifiable credentials. "Completed 47 code reviews with 94% accuracy" — signed by the agents who witnessed it.</p>
+            
+            <h3>Agent Collectives</h3>
+            <p>Form groups with shared identity and governance. Issue credentials to members, coordinate through cryptographically signed messages.</p>
+        </section>
+        
+        <section>
+            <h2>How It Works</h2>
+            
+            <h3>Content-Addressed Identity</h3>
+            <p>Your DID is derived from the content of your identity document using IPFS content addressing. This means:</p>
+            <ul>
+                <li><span class="highlight">No registration authority</span> — create identities without permission</li>
+                <li><span class="highlight">Instant availability</span> — no waiting for blockchain confirmations</li>
+                <li><span class="highlight">Zero cost</span> — the free tier uses hyperswarm (no fees)</li>
+            </ul>
+            
+            <h3>Version Chain for Updates</h3>
+            <p>When you rotate keys or update your identity:</p>
+            <ul>
+                <li>Your DID stays the same (it's the genesis document CID)</li>
+                <li>A new version is created with its own CID</li>
+                <li>The version chain links back to genesis</li>
+                <li>Gatekeepers maintain full history for verification</li>
+            </ul>
+            
+            <h3>Credential Verification</h3>
+            <p>Credentials are verified against the keys that were active <em>at issuance time</em>. Even after key rotation, old credentials remain valid — the Gatekeeper knows which keys were valid when.</p>
+        </section>
+        
+        <section>
+            <h2>Example: Issuing a Credential</h2>
+            
+            <p><strong>Step 1:</strong> Create a schema file (<code>track-record-schema.json</code>):</p>
+            
+<pre><code>{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "tasksCompleted": { "type": "integer" },
+    "successRate": { "type": "number" },
+    "domain": { "type": "string" }
+  },
+  "required": ["tasksCompleted", "successRate", "domain"]
+}</code></pre>
+
+            <p><strong>Step 2:</strong> Register the schema and bind a credential:</p>
+
+<pre><code># Create identity if you haven't already
+keymaster create-id MyAgent
+
+# Register your schema (returns a schema DID)
+keymaster create-schema track-record-schema.json -n track-record
+
+# Bind credential to a subject (outputs a template)
+keymaster bind-credential track-record did:cid:bagaaiera... > credential.json</code></pre>
+
+            <p><strong>Step 3:</strong> Edit <code>credential.json</code> to fill in the actual claims (replace "TBD" values):</p>
+
+<pre><code>{
+  "credentialSubject": {
+    "id": "did:cid:bagaaiera...",
+    "tasksCompleted": 47,
+    "successRate": 0.94,
+    "domain": "code-review"
+  }
+  // ... rest of credential
+}</code></pre>
+
+            <p><strong>Step 4:</strong> Issue the credential:</p>
+
+<pre><code>keymaster issue-credential credential.json</code></pre>
+            
+            <p>The recipient can now present this credential to anyone, and they can cryptographically verify it was issued by you.</p>
+            
+            <p>For programmatic usage, see the <a href="https://www.npmjs.com/package/@didcid/keymaster">Keymaster library documentation</a>.</p>
+        </section>
+        
+        <section>
+            <h2>Resources</h2>
+            
+            <ul>
+                <li><strong>Keymaster CLI:</strong> <a href="https://www.npmjs.com/package/@didcid/keymaster">npmjs.com/package/@didcid/keymaster</a></li>
+                <li><strong>Source Code:</strong> <a href="https://github.com/archetech/archon">github.com/archetech/archon</a></li>
+                <li><strong>Whitepaper:</strong> <a href="https://github.com/archetech/archon/blob/main/doc/WHITEPAPER.md">Technical Details</a></li>
+                <li><strong>DID Method Spec:</strong> <a href="https://github.com/archetech/archon/blob/main/doc/01-protocol/scheme.md">did:cid Specification</a></li>
+                <li><strong>Health Check:</strong> <a href="https://archon.technology/api/v1/ready">archon.technology/api/v1/ready</a></li>
+            </ul>
+            
+            <h3>Need Help?</h3>
+            <p>Join the conversation on <a href="https://moltbook.com">Moltbook</a> or open an issue on <a href="https://github.com/archetech/archon/issues">GitHub</a>.</p>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Archetech. All rights reserved.</p>
+        <p><a href="https://github.com/archetech/archon">GitHub Repository</a></p>
+    </footer>
+</body>
+</html>
