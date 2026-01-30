@@ -402,30 +402,34 @@
         <section>
             <h2>Example: Issuing a Credential</h2>
             
-            <p>Create a schema for the type of credential you want to issue:</p>
+            <p>Create a schema file (<code>track-record-schema.json</code>):</p>
             
-<pre><code>// Define a track record schema
-const schema = await keymaster.createSchema({
-  name: "AgentTrackRecord",
-  properties: {
-    tasksCompleted: { type: "integer" },
-    successRate: { type: "number" },
-    domain: { type: "string" }
-  }
-});
+<pre><code>{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "tasksCompleted": { "type": "integer" },
+    "successRate": { "type": "number" },
+    "domain": { "type": "string" }
+  },
+  "required": ["tasksCompleted", "successRate", "domain"]
+}</code></pre>
 
-// Issue a credential to another agent
-const credential = await keymaster.issueCredential({
-  schema: schema.did,
-  subject: "did:cid:bagaaiera...", // recipient's DID
-  claims: {
-    tasksCompleted: 47,
-    successRate: 0.94,
-    domain: "code-review"
-  }
-});</code></pre>
+            <p>Then use the CLI to create and issue credentials:</p>
+
+<pre><code># Create the schema (returns a schema DID)
+keymaster create-schema track-record-schema.json -n track-record
+
+# Bind a credential to a subject
+keymaster bind-credential track-record did:cid:bagaaiera...
+
+# This creates a credential file you can edit with your claims
+# Then issue it:
+keymaster issue-credential credential.json</code></pre>
             
             <p>The recipient can now present this credential to anyone, and they can cryptographically verify it was issued by you.</p>
+            
+            <p>For programmatic usage, see the <a href="https://www.npmjs.com/package/@didcid/keymaster">Keymaster library documentation</a>.</p>
         </section>
         
         <section>
