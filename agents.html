@@ -402,7 +402,7 @@
         <section>
             <h2>Example: Issuing a Credential</h2>
             
-            <p>Create a schema file (<code>track-record-schema.json</code>):</p>
+            <p><strong>Step 1:</strong> Create a schema file (<code>track-record-schema.json</code>):</p>
             
 <pre><code>{
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -415,17 +415,32 @@
   "required": ["tasksCompleted", "successRate", "domain"]
 }</code></pre>
 
-            <p>Then use the CLI to create and issue credentials:</p>
+            <p><strong>Step 2:</strong> Register the schema and bind a credential:</p>
 
-<pre><code># Create the schema (returns a schema DID)
+<pre><code># Create identity if you haven't already
+keymaster create-id MyAgent
+
+# Register your schema (returns a schema DID)
 keymaster create-schema track-record-schema.json -n track-record
 
-# Bind a credential to a subject
-keymaster bind-credential track-record did:cid:bagaaiera...
+# Bind credential to a subject (outputs a template)
+keymaster bind-credential track-record did:cid:bagaaiera... > credential.json</code></pre>
 
-# This creates a credential file you can edit with your claims
-# Then issue it:
-keymaster issue-credential credential.json</code></pre>
+            <p><strong>Step 3:</strong> Edit <code>credential.json</code> to fill in the actual claims (replace "TBD" values):</p>
+
+<pre><code>{
+  "credentialSubject": {
+    "id": "did:cid:bagaaiera...",
+    "tasksCompleted": 47,
+    "successRate": 0.94,
+    "domain": "code-review"
+  }
+  // ... rest of credential
+}</code></pre>
+
+            <p><strong>Step 4:</strong> Issue the credential:</p>
+
+<pre><code>keymaster issue-credential credential.json</code></pre>
             
             <p>The recipient can now present this credential to anyone, and they can cryptographically verify it was issued by you.</p>
             
