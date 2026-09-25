@@ -231,7 +231,22 @@
             margin: 1.5rem 0;
             overflow-x: auto;
         }
-        
+
+        .quickstart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .quickstart-grid .command-box {
+            margin: 0.5rem 0 0;
+        }
+
+        .quickstart-grid h3 {
+            margin-top: 0;
+        }
+
         .cta-button {
             display: inline-block;
             background-color: var(--accent);
@@ -311,26 +326,48 @@
             <h1>🤖 Identity for AI Agents</h1>
             <p class="tagline">Free, Decentralized, Verifiable</p>
             <p style="font-size: 1.1rem; color: #666;">One command. Portable identity. No platform lock-in.</p>
+            <p style="font-size: 1.1rem; color: var(--dark); font-weight: 500;">🔒 Protocol convergence proved in Lean 4</p>
+            <p>
+                <a href="https://4tress.org" class="cta-button">Try the reference node → 4tress.org</a>
+                <a href="https://github.com/archetech/archon" class="cta-button" style="background-color: var(--dark);">Read the docs →</a>
+            </p>
         </section>
         
         <section>
             <h2>Quick Start</h2>
-            <p>Get a decentralized identity in seconds:</p>
-            
-            <div class="command-box">
-                export ARCHON_GATEKEEPER_URL=https://archon.technology<br>
-                export ARCHON_PASSPHRASE=your-secret-passphrase<br><br>
-                npx @didcid/keymaster create-id YourAgentName
+            <p>Get a decentralized identity in seconds, from JavaScript or Python — against the public reference node at <a href="https://4tress.org">4tress.org</a>:</p>
+
+            <div class="quickstart-grid">
+                <div>
+                    <h3>JavaScript</h3>
+                    <div class="command-box">
+                        export ARCHON_GATEKEEPER_URL=https://4tress.org<br>
+                        export ARCHON_PASSPHRASE=your-secret-passphrase<br><br>
+                        npx @didcid/keymaster create-id YourAgentName
+                    </div>
+                </div>
+                <div>
+                    <h3>Python</h3>
+                    <div class="command-box">
+                        pip install archon-keymaster<br>
+                        export ARCHON_GATEKEEPER_URL=https://4tress.org<br>
+                        export ARCHON_PASSPHRASE=your-secret-passphrase<br><br>
+                        keymaster create-id YourAgentName
+                    </div>
+                </div>
             </div>
-            
+
+            <p>Running your own node? Local-only usage doesn't need any URL at all — the CLI defaults to <code>http://localhost:4224</code>.</p>
+
             <p>That's it. You now have:</p>
             <ul>
                 <li>A globally unique identifier: <code>did:cid:bagaaiera...</code></li>
                 <li>Your own cryptographic keypair (stored locally in <code>wallet.json</code>)</li>
                 <li>The ability to issue and receive verifiable credentials</li>
             </ul>
-            
-            <a href="https://www.npmjs.com/package/@didcid/keymaster" class="cta-button">View Documentation →</a>
+
+            <a href="https://www.npmjs.com/package/@didcid/keymaster" class="cta-button">npm docs →</a>
+            <a href="https://pypi.org/project/archon-keymaster/" class="cta-button" style="background-color: var(--dark);">PyPI docs →</a>
         </section>
         
         <section>
@@ -351,7 +388,11 @@
                 </div>
                 <div class="feature-card">
                     <h3>🌐 Decentralized</h3>
-                    <p>No single point of failure. Your identity is anchored to IPFS and optionally to Bitcoin for maximum durability.</p>
+                    <p>No single point of failure. Identities propagate over hyperswarm by default and can be anchored to Bitcoin, Ethereum, Solana, or Zcash for immutable public settlement.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔬 Proved Protocol Convergence</h3>
+                    <p>The protocol model has machine-checked Lean 4 proofs: nodes with the same retained operations and chain evidence converge to the same histories and DID states, regardless of arrival order or duplicates. See the <a href="https://github.com/archetech/archon/tree/main/proofs">proof scope and assumptions</a>; this is not verification of the entire implementation.</p>
                 </div>
             </div>
         </section>
@@ -379,13 +420,22 @@
             <h2>How It Works</h2>
             
             <h3>Content-Addressed Identity</h3>
-            <p>Your DID is derived from the content of your identity document using IPFS content addressing. This means:</p>
+            <p>Your DID is derived from the content of your identity document using IPFS content addressing. Identities live on hyperswarm by default and can be anchored to Bitcoin, Ethereum, Solana, or Zcash for immutable public settlement. This means:</p>
             <ul>
                 <li><span class="highlight">No registration authority</span> — create identities without permission</li>
                 <li><span class="highlight">Instant availability</span> — no waiting for blockchain confirmations</li>
-                <li><span class="highlight">Zero cost</span> — the free tier uses hyperswarm (no fees)</li>
+                <li><span class="highlight">Zero cost</span> — hyperswarm propagation has no fees</li>
             </ul>
-            
+
+            <h3>Multi-Chain Anchoring</h3>
+            <p>Optional chain mediators anchor DID updates on mainnet or test networks:</p>
+            <ul>
+                <li><span class="highlight">Bitcoin</span> — settlement-grade immutability via the Satoshi mediator (mainnet, signet, testnet4)</li>
+                <li><span class="highlight">Ethereum</span> — anchors imported only after finalization (mainnet, Sepolia)</li>
+                <li><span class="highlight">Solana</span> — high-throughput, low-cost anchoring</li>
+                <li><span class="highlight">Zcash</span> — anchoring with the privacy ecosystem's chain</li>
+            </ul>
+
             <h3>Version Chain for Updates</h3>
             <p>When you rotate keys or update your identity:</p>
             <ul>
@@ -396,7 +446,25 @@
             </ul>
             
             <h3>Credential Verification</h3>
-            <p>Credentials are verified against the keys that were active <em>at issuance time</em>. Even after key rotation, old credentials remain valid — the Gatekeeper knows which keys were valid when.</p>
+            <p>Credentials are verified against the keys that were active <em>at issuance time</em>. Even after key rotation, old credentials remain valid — the Gatekeeper knows which keys were valid when. Credentials issued since v0.13 use the <code>DataIntegrityProof</code> suite <code>archon-ecdsa-secp256k1-jcs-2026</code>.</p>
+        </section>
+
+        <section>
+            <h2>Messaging</h2>
+            <p>Agents talk to each other over <strong>DIDComm v2</strong> — encrypted, signed, and delivered through hosted mailboxes, with <strong>dmail</strong> (DID-addressed mail) and the Herald name service as delivery options. No central inbox provider required.</p>
+
+            <p>Before messaging, both participants must publish their DIDComm key and mailbox endpoint for their current identity using a DIDComm-enabled node. With <code>ARCHON_GATEKEEPER_URL</code> pointing to that node's gateway, <code>publish-didcomm</code> discovers its mailbox endpoint automatically. The examples below use the installed <code>keymaster</code> CLI; for JavaScript without a global install, replace <code>keymaster</code> with <code>npx @didcid/keymaster</code>.</p>
+
+<pre><code># Run once for each participant's identity, in their own wallet
+keymaster publish-didcomm
+
+# Deliver an issued credential to another agent over DIDComm
+keymaster send-credential-didcomm &lt;credential-did&gt; &lt;to&gt;
+
+# Fetch and unpack queued messages from your mailbox
+keymaster receive-didcomm</code></pre>
+
+            <p>Prefer asynchronous mail? <code>keymaster send-dmail</code> and <code>keymaster refresh-dmail</code> cover the dmail flow.</p>
         </section>
         
         <section>
@@ -451,11 +519,14 @@ keymaster bind-credential track-record did:cid:bagaaiera... > credential.json</c
             <h2>Resources</h2>
             
             <ul>
-                <li><strong>Keymaster CLI:</strong> <a href="https://www.npmjs.com/package/@didcid/keymaster">npmjs.com/package/@didcid/keymaster</a></li>
+                <li><strong>Keymaster CLI (JS):</strong> <a href="https://www.npmjs.com/package/@didcid/keymaster">npmjs.com/package/@didcid/keymaster</a></li>
+                <li><strong>Keymaster SDK (Python):</strong> <a href="https://pypi.org/project/archon-keymaster/">pypi.org/project/archon-keymaster</a></li>
                 <li><strong>Source Code:</strong> <a href="https://github.com/archetech/archon">github.com/archetech/archon</a></li>
-                <li><strong>Whitepaper:</strong> <a href="https://github.com/archetech/archon/blob/main/doc/WHITEPAPER.md">Technical Details</a></li>
-                <li><strong>DID Method Spec:</strong> <a href="https://github.com/archetech/archon/blob/main/doc/01-protocol/scheme.md">did:cid Specification</a></li>
-                <li><strong>Health Check:</strong> <a href="https://archon.technology/api/v1/ready">archon.technology/api/v1/ready</a></li>
+                <li><strong>Whitepaper:</strong> <a href="https://github.com/archetech/archon/blob/main/docs/WHITEPAPER.md">Technical Details</a></li>
+                <li><strong>DID Method Spec:</strong> <a href="https://github.com/archetech/archon/blob/main/docs/scheme.md">did:cid Specification</a></li>
+                <li><strong>Formal Proofs:</strong> <a href="https://github.com/archetech/archon/tree/main/proofs">Lean 4 protocol convergence proofs</a></li>
+                <li><strong>Walkthrough:</strong> <a href="https://github.com/archetech/archon/blob/main/docs/presentations/how-archon-works.html">Source for the animated "How Archon Works" walkthrough (HTML)</a></li>
+                <li><strong>Reference Node:</strong> <a href="https://4tress.org/api/v1/ready">4tress.org/api/v1/ready</a></li>
             </ul>
             
             <h3>Need Help?</h3>
@@ -464,7 +535,7 @@ keymaster bind-credential track-record did:cid:bagaaiera... > credential.json</c
     </div>
     
     <footer>
-        <p>&copy; 2024 Archetech. All rights reserved.</p>
+        <p>&copy; 2026 Archetech. All rights reserved.</p>
         <p><a href="https://github.com/archetech/archon">GitHub Repository</a></p>
     </footer>
 </body>
